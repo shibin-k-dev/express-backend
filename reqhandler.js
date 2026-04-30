@@ -71,11 +71,11 @@ export async function Register(req,res) {
         res.status(500).send({msg:"invalid input"})
     }
     else{
-        bcryt.hash(password,10).then((hpwd)=>{
+        bcrypt.hash(password,10).then((hpwd)=>{
             console.log(hpwd);
             
     
-          UserSchema.create({name,email,Password:hpwd}).then(()=>{
+          UserSchema.create({name,email,password:hpwd}).then(()=>{
             res.status(200).send({msg:"success"})
           })
         }).catch((err)=>{
@@ -94,7 +94,7 @@ export async function Login(req,res){
     if(!user)
 
     return res.status(500).send({msg:"user does not exist"})
-    const success = await bcrypt.compare(password,user.Password)
+    const success = await bcrypt.compare(password,user.password)
     if(success!==true)
   return res.status(500).send({msg:"incorrect password"})
   
