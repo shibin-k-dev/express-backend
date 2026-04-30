@@ -94,7 +94,7 @@ export async function Login(req,res){
     if(!user)
 
     return res.status(500).send({msg:"user does not exist"})
-    const success = await bcrypt.compare(password,user.password)
+    const success = await bcrypt.compare(password,user.Password)
     if(success!==true)
   return res.status(500).send({msg:"incorrect password"})
   
